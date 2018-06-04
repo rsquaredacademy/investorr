@@ -1,0 +1,31 @@
+margin <- function(num_shares, init_price, final_price, equity, int_rate) {
+    
+    # convert interest rate 
+    int_rate <- int_rate / 100
+    
+    # compute initial and final investment value
+    initial_value <- num_shares * init_price
+    final_value <- num_shares * final_price
+    price_change <- round(((final_price - init_price) / init_price) * 100, 2)
+    own_money <- initial_value - equity
+    
+    # compute interest on borrowed money
+    interest <- int_rate * equity
+    payable <- interest + equity
+    
+    # compute return and rate of return
+    return_invt <- final_value - payable
+    returns <- return_invt - own_money
+    rate_return <- returns / own_money
+    
+    cat(price_change, "% ", "   ", final_value, "     ", payable, "    ", rate_return, "\n")
+}
+
+margin(200, 100, 70, 10000, 9)
+
+ending_price <- seq(from = 20, to = 80, by = 5)
+
+cat("Change Final Value  Repayment  Return\n")
+for (i in ending_price) {
+    result <- margin(200, 100, i, 10000, 9)
+}
