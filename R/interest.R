@@ -1,3 +1,10 @@
+#' @title Accrued interest
+#'
+#' @examples
+#' accrued_interest("2015-05-13", "2015-09-13", "2015-07-13", 7, 1000, 1)
+#'
+#' @export
+#'
 accrued_interest <- function(last_date, next_date, settle_date, rate, par_value, freq) {
 
 	# date transformation
@@ -29,4 +36,4 @@ accrued_interest <- function(last_date, next_date, settle_date, rate, par_value,
     return(interest)
 }
 
-accrued_interest("2015-05-13", "2015-09-13", "2015-07-13", 7, 1000, 1)
+

@@ -1,15 +1,11 @@
-# In this tutorial, we will write R functions to compute the following:
-
-# 1. Present Value of Annuity
-# 2. Future Value of Annuity
-# 3. Present Value of Annuity Due
-# 4. Future Value of Annuity Due
-# 5. Payments - FV
-# 6. Payments - PV
-# 7. Periods - FV
-# 8. Periods - PV
-
-pv_annuity <- function(payment, rate, periods) {
+#' @title Present value of annuity
+#'
+#' @examples 
+#' annuity_pv(500000, 8, 5)
+#'
+#' @export
+#'
+annuity_pv <- function(payment, rate, periods) {
     
     # transform the rate
     rate <- rate / 100
@@ -26,11 +22,15 @@ pv_annuity <- function(payment, rate, periods) {
     return(pv)
 }
 
-# Example 
-pv_annuity(500000, 8, 5)
 
-
-fv_annuity <- function(payment , rate, periods) {
+#' @title Future value of annuity
+#'
+#' @examples
+#' annuity_fv(1000, 6, 5)
+#'
+#' @export
+#'
+annuity_fv <- function(payment , rate, periods) {
     
     # transform the rate
     rate <- rate / 100
@@ -44,10 +44,16 @@ fv_annuity <- function(payment , rate, periods) {
     return(fv)
 }
 
-fv_annuity(1000, 6, 5)
 
 
-pv_annuity_due <- function(payment, rate, periods) {
+#' @title Present value of annuity due
+#'
+#' @examples
+#' annuity_due_pv(1000, 5, 5)
+#'
+#' @export
+#'
+annuity_due_pv <- function(payment, rate, periods) {
     
     p_annuity <- pv_annuity(payment, rate, periods)
     p_an_due <- p_annuity * (1 + (rate / 100))
@@ -56,9 +62,13 @@ pv_annuity_due <- function(payment, rate, periods) {
 }
 
 
-pv_annuity_due(1000, 5, 5)
-
-
+#' @title Future value of annuity due
+#'
+#' @examples
+#' annuity_due_fv(1000, 5, 5)
+#'
+#' @export
+#'
 fv_annuity_due <- function(payment, rate, periods) {
     
     f_annuity <- fv_annuity(payment, rate, periods)
@@ -68,8 +78,10 @@ fv_annuity_due <- function(payment, rate, periods) {
 }
 
 
-fv_annuity_due(1000, 5, 5)
-
+#' @title Payments FV
+#'
+#' @export
+#'
 payment_fv <- function(future_value, rate, periods) {
     
     # transform rate
@@ -81,7 +93,10 @@ payment_fv <- function(future_value, rate, periods) {
     return(payment)
 }
 
-
+#' @title Payments PV
+#'
+#' @export
+#'
 payment_pv <- function(present_value, rate, periods) {
     
     # transform rate
@@ -93,7 +108,13 @@ payment_pv <- function(present_value, rate, periods) {
     return(payment)
 }
 
-
+#' @title Periods FV
+#'
+#' @examples
+#' periods_fv(500, 8, 50)
+#'
+#' @export
+#'
 periods_fv <- function(future_value, rate, payment) {
     
     # transform rate
@@ -105,6 +126,13 @@ periods_fv <- function(future_value, rate, payment) {
 }
 
 
+#' @title Periods PV
+#'
+#' @examples
+#' periods_pv(500, 8, 50)
+#'
+#' @export
+#'
 periods_pv <- function(present_value, rate, payment) {
     
     # transform rate
@@ -117,9 +145,6 @@ periods_pv <- function(present_value, rate, payment) {
 
 
 
-# test
-periods_fv(500, 8, 50)
-periods_pv(500, 8, 50)
 
 
 

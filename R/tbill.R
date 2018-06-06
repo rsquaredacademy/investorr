@@ -1,4 +1,10 @@
-# libraries
+#' @title Treasury bill price
+#'
+#' @examples
+#' tbill_price(0.145, 57)
+#'
+#' @export
+#'
 tbill_price <- function(rate, days) {
 
 	# transform rate
@@ -14,9 +20,13 @@ tbill_price <- function(rate, days) {
 	return(price)
 }
 
-# tbill_price(0.145, 57)
-
-
+#' @title Treasury bill rate
+#'
+#' @examples
+#' tbill_rate(93, 360)
+#'
+#' @export
+#'
 tbill_rate <- function(price, days) {
 
 	rate <- (100 - price) * (360 / days)
@@ -24,14 +34,21 @@ tbill_rate <- function(price, days) {
     return(rate)
 }
 
-# tbill_rate(93, 360)
-
 library(dplyr)
 library(ggplot2)
 source("t_bill.R")
 
 
-# rate for different maturity days
+#' @title Rate index
+#'
+#' @examples
+#' rate_index(93, 200)
+#'
+#' @importFrom dplyr rbind
+#' @importFrom ggplot2 ggplot geom_line xlab ylab ggtitle theme_bw
+#'
+#' @export
+#'
 rate_index <- function(price, days) {
     
     # increase the days by 200
@@ -55,35 +72,7 @@ rate_index <- function(price, days) {
 }
 
 
-#rate_index(93, 200)
 
-
-
-# rate for different maturity days
-rate_index <- function(price, days) {
-    
-    # increase the days by 200
-    day1 <- days - 100
-    day2 <- days + 100
-    
-    # create an empty data frame
-    rate_df <- data.frame(Days = as.numeric(), Rate = as.numeric())
-    
-    for (days in day1:day2) {
-        rate <- tbill_rate(price, days)
-        rate_df <- rbind(rate_df, data.frame(Days = days, Rate = rate))
-    }
-    
-    # use ggplot2 to plot the rate data
-    viz <- ggplot(data = rate_df, aes(x = Days, y = Rate)) + geom_line(colour = "blue") +
-        xlab("Days Until Maturity") + ylab("Rate") + ggtitle("T-Bill Rate") + theme_bw()
-    
-    return(viz)
-}
-
-
-
-rate_index(93, 90)
 
 
 

@@ -1,3 +1,10 @@
+#' @title Margin
+#'
+#' @examples
+#' margin(200, 100, 70, 10000, 9)
+#'
+#' @export
+#'
 margin <- function(num_shares, init_price, final_price, equity, int_rate) {
     
     # convert interest rate 
@@ -21,11 +28,5 @@ margin <- function(num_shares, init_price, final_price, equity, int_rate) {
     cat(price_change, "% ", "   ", final_value, "     ", payable, "    ", rate_return, "\n")
 }
 
-margin(200, 100, 70, 10000, 9)
 
-ending_price <- seq(from = 20, to = 80, by = 5)
 
-cat("Change Final Value  Repayment  Return\n")
-for (i in ending_price) {
-    result <- margin(200, 100, i, 10000, 9)
-}

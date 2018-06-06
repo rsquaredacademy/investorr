@@ -1,7 +1,10 @@
-# load the lubridate package
-library(lubridate)
-
-# the bond_dates function
+#' @title Coupon dates 
+#'
+#' @examples
+#' bond_dates("2015-05-14", "2018-10-23", 2)
+#'
+#' @export
+#'
 bond_dates <- function(sdate, mdate, freq) {
     
     # convert sdate and mdate to date type
@@ -58,17 +61,20 @@ bond_dates <- function(sdate, mdate, freq) {
                    Previous_Coupon_Date  = pcd,
                    Coupon_Days = cdays,
                    Coupon_Days_Past = dppc,
-                   Next_Coupon <- dnc,
+                   Next_Coupon = dnc,
                    Coupons = coupons)
     
     return(result)
 }
 
 
-out <- bond_dates("2015-05-14", "2018-10-23", 2)
-out
-
-
+#' @title Bond price
+#'
+#' @examples
+#' bond_price(1000, 1693, 5, 8, "2015-05-11", "2017-01-11", 4)
+#'
+#' @export
+#'
 bond_price <- function(par_value, redemption_value, rate, yield, settlement_date, maturity_date, frequency) {
 
     # compute the number of years from dates
@@ -118,7 +124,7 @@ bond_price <- function(par_value, redemption_value, rate, yield, settlement_date
     return(result)
 }
 
-bond_price(1000, 1693, 5, 8, "2015-05-11", "2017-01-11", 4)
+
 
 
 bond_price_2 <- function(par_value, redemption_value, rate, yield, settlement_date, maturity_date, frequency) {
@@ -169,7 +175,14 @@ bond_price_2 <- function(par_value, redemption_value, rate, yield, settlement_da
 bond_price_2(1000, 1693, 5, 8, "2015-05-11", "2017-01-11", 4)
 
 
-    current_yield <- function(par_value, rate, price) {
+#' @title Current yield
+#'
+#' @examples
+#' current_yield(100, 10, 95.92) 
+#'
+#' @export
+#'
+current_yield <- function(par_value, rate, price) {
 
     # transform the rate
     rate <- rate / 100
@@ -186,9 +199,14 @@ bond_price_2(1000, 1693, 5, 8, "2015-05-11", "2017-01-11", 4)
     return(current_yield)
 }
 
-current_yield(100, 10, 95.92)
 
-
+#' @title Adjusted current yield
+#'
+#' @examples
+#' adjusted_current_yield(100, 5, 95.92, 2.5)
+#'
+#' @export
+#'
 adjusted_current_yield <- function(par_value, rate, price, n) {
 
     # transform the rate
@@ -207,10 +225,13 @@ adjusted_current_yield <- function(par_value, rate, price, n) {
     return(adjusted_current_yield)
 }
 
-adjusted_current_yield(100, 5, 95.92, 2.5)
 
 
-# compute cash flow
+
+#' @title Cash flow
+#'
+#' @export
+#'
 cash_flow <- function(M, r) {
     
     # cash flow
@@ -218,7 +239,13 @@ cash_flow <- function(M, r) {
     cash <- round(cash, digits = 2)
 }
 
-# compute bond price
+#' @title Bond price
+#'
+#' @examples
+#' bprice(1000, 5, 4, 5, 1)
+#'
+#' @export
+#'
 bprice <- function(par_value, rate, yield, n, frequency) {
     
     if (frequency == 4) {
@@ -257,8 +284,14 @@ bprice <- function(par_value, rate, yield, n, frequency) {
     return(result)
 }
 
-# bond_price_2(1000, 1693, 5, 8, "2015-05-11", "2017-01-11", 4)
 
+#' @title Macaulay duration
+#'
+#' @examples
+#' macaulay_duration(8, 9, 5, 1000, 4)
+#'
+#' @export
+#'
 macaulay_duration <- function(rate, yield, n, par_value, freq) {
     
     # transform rate
@@ -303,36 +336,13 @@ macaulay_duration <- function(rate, yield, n, par_value, freq) {
 }
 
 
-macaulay_duration(8, 9, 5, 1000, 4)
-
-bprice(1000, 5, 4, 5, 1)
-
-
-# summ <- function(i, n, M) {
-#     
-#     # transform rate
-#     i <- i / 100
-#     
-#     # compute cash flow
-#     C <- cash_flow(M, i)
-#     
-#     # summation
-#     t <- 1
-#     sum <- 0
-#     while (t < 6) {
-#         sim <- (t * C) / ((1 + i) ^ t)
-#         sum <- sum + sim
-#         t <- t + 1
-#     }
-#     
-#     result <- list(t, sum)
-#     return(result)
-# }
-# 
-# 
-# summ(5, 5, 1000)
-
-
+#' @title Bond duration
+#'
+#' @examples
+#' duration(1000, 6, 4, 5, 2)
+#'
+#' @export
+#'
 duration <- function(par_value, rate, yield, n) {
     
     # transform rate
@@ -366,9 +376,12 @@ duration <- function(par_value, rate, yield, n) {
     return(result)
 }
 
-duration(1000, 6, 4, 5, 2)
 
-# compute bond price
+
+#' @title Bond price
+#'
+#' @export
+#'
 bond_price <- function(r, i, n, M) {
     
     C <- cash_flow(M, r)
@@ -379,7 +392,13 @@ bond_price <- function(r, i, n, M) {
 }
 
 
-
+#' @title Macaulay duration
+#'
+#' @examples
+#' macaulay_duration(8, 9, 5, 1000)
+#'
+#' @export
+#'
 macaulay_duration <- function(r, i, n, M) {
     
     # transform rate
@@ -409,10 +428,13 @@ macaulay_duration <- function(r, i, n, M) {
     return(macaulay)
 }
 
-
-macaulay_duration(8, 9, 5, 1000)
-
-
+#' @title Yield to maturity
+#'
+#' @examples
+#' yield_to_maturity(1000, 10, 920, 10, 2)
+#'
+#' @export
+#'
 yield_to_maturity <- function(par_value, rate, price, n, freq) {
     
     # transform rate
@@ -440,7 +462,7 @@ yield_to_maturity <- function(par_value, rate, price, n, freq) {
     return(ytm)
 }
 
-yield_to_maturity(1000, 10, 920, 10, 2)
+
 
 yield_to_maturity_2 <- function(par_value, rate, price, n, freq) {
 
