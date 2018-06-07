@@ -34,11 +34,6 @@ tbill_rate <- function(price, days) {
     return(rate)
 }
 
-library(dplyr)
-library(ggplot2)
-source("t_bill.R")
-
-
 #' @title Rate index
 #'
 #' @examples
