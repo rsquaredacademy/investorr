@@ -2,11 +2,27 @@
 % Please edit documentation in R/tbill.R
 \name{tbill_price}
 \alias{tbill_price}
-\title{Treasury bill price}
+\alias{tbill_rate}
+\alias{rate_index}
+\title{Treasury bill}
 \usage{
 tbill_price(rate, days)
+
+tbill_rate(price, days)
+
+rate_index(price, days)
+}
+\arguments{
+\item{rate}{Annual interest rate.}
+
+\item{days}{Days to maturity.}
+}
+\description{
+Computes treasury bill price, rate and rate index.
 }
 \examples{
 tbill_price(0.145, 57)
+tbill_rate(93, 360)
+rate_index(93, 200)
 
 }
