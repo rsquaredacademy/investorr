@@ -1,146 +1,126 @@
-#' @title Present value of annuity
+#' Annuity
 #'
-#' @examples 
-#' annuity_pv(500000, 8, 5)
+#' Computes present value, future value, payments and periods
+#' for annuity and annuity due.
+#'
+#' @param payment Annuity payment.
+#' @param interest_rate Interest rate.
+#' @param discount Discount rate. 
+#' @param years Number of years/annuity payments.
+#' @param future_value Future value of cash flow.
+#' @param present_value Present value of cash flow.
+#'
+#' @examples
+#' # present value of annuity
+#' ivt_annuity_pv(500000, 8, 5)
+#'
+#' # future value of annuity
+#' ivt_annuity_fv()
+#'
+#' # present value of annuity due
+#' ivt_annuity_due_pv()
+#'
+#' # future value of annuity due
+#' ivt_annuity_due_fv()
+#'
+#' # payments given present value
+#' ivt_payment_pv()
+#'
+#' # payments given future value
+#' ivt_payment_fv()
+#'
+#' # years given present value
+#' ivt_years_pv()
+#'
+#' # years given future value
+#' ivt_years_fv()
 #'
 #' @export
 #'
-annuity_pv <- function(payment, rate, periods) {
-    
-    # transform the rate
-    rate <- rate / 100
-    
-    # compute perpetuity
+ivt_annuity_pv <- function(payment, rate, periods) {
+
+    rate       <- rate / 100
     perpetuity <- 1 / rate
-    
-    # compute discounting
-    discount <- 1 / (rate * ((1 + rate) ^ periods))
-    
-    # present value
-    pv <- payment * (perpetuity -  discount)
-    pv <- round(pv, digits = 2)
-    return(pv)
+    discount   <- 1 / (rate * ((1 + rate) ^ periods))
+    payment * (perpetuity -  discount)
+
 }
 
 
-#' @title Future value of annuity
-#'
-#' @examples
-#' annuity_fv(1000, 6, 5)
-#'
+#' @rdname ivt_annuity_pv
 #' @export
 #'
-annuity_fv <- function(payment , rate, periods) {
-    
-    # transform the rate
-    rate <- rate / 100
-     
-    # compute discount
+ivt_annuity_fv <- function(payment , rate, periods) {
+
+    rate     <- rate / 100
     discount <- (1 + rate) ^ periods
-    
-    # future value
-    fv <- payment * ((discount - 1) / rate)
-    fv <- round(fv, digits = 2)
-    return(fv)
+    payment * ((discount - 1) / rate)
+
 }
 
 
 
-#' @title Present value of annuity due
-#'
-#' @examples
-#' annuity_due_pv(1000, 5, 5)
-#'
+#' @rdname ivt_annuity_pv
 #' @export
 #'
-annuity_due_pv <- function(payment, rate, periods) {
-    
+ivt_annuity_due_pv <- function(payment, rate, periods) {
+
     p_annuity <- pv_annuity(payment, rate, periods)
-    p_an_due <- p_annuity * (1 + (rate / 100))
-    p_an_due <- round(p_an_due, digits = 2)
-    return(p_an_due)
+    p_annuity * (1 + (rate / 100))
+
 }
 
 
-#' @title Future value of annuity due
-#'
-#' @examples
-#' annuity_due_fv(1000, 5, 5)
-#'
+#' @rdname ivt_annuity_pv
 #' @export
 #'
-fv_annuity_due <- function(payment, rate, periods) {
-    
+ivt_annuity_due_fv <- function(payment, rate, periods) {
+
     f_annuity <- fv_annuity(payment, rate, periods)
-    f_an_due <- f_annuity * (1 + (rate / 100))
-    f_an_due <- round(f_an_due, digits = 2)
-    return(f_an_due)
+    f_annuity * (1 + (rate / 100))
+
 }
 
 
-#' @title Payments FV
-#'
+#' @rdname ivt_annuity_pv
 #' @export
 #'
-payment_fv <- function(future_value, rate, periods) {
-    
-    # transform rate
+ivt_payment_fv <- function(future_value, rate, periods) {
+
     rate <- rate / 100
-    
-    # compute payment
-    payment <- (rate * future_value) / (((1 + rate) ^ periods) - 1)
-    payment <- round(payment, digits = 2)
-    return(payment)
+    (rate * future_value) / (((1 + rate) ^ periods) - 1)
+
 }
 
-#' @title Payments PV
-#'
+#' @rdname ivt_annuity_pv
 #' @export
 #'
-payment_pv <- function(present_value, rate, periods) {
-    
-    # transform rate
+ivt_payment_pv <- function(present_value, rate, periods) {
+
     rate <- rate / 100
-    
-    # compute payment
-    payment <- (rate * present_value) / (1 - ((1 + rate) ^ -periods))
-    payment <- round(payment, digits = 2)
-    return(payment)
+    (rate * present_value) / (1 - ((1 + rate) ^ -periods))
+
 }
 
-#' @title Periods FV
-#'
-#' @examples
-#' periods_fv(500, 8, 50)
-#'
+#' @rdname ivt_annuity_pv
 #' @export
 #'
-periods_fv <- function(future_value, rate, payment) {
-    
-    # transform rate
+ivt_years_fv <- function(future_value, rate, payment) {
+
     rate <- rate / 100
-    
-    periods <- log(((rate * future_value) / payment) + 1) / log(1 + rate)
-    periods <- round(periods, digits = 2)
-    return(periods)
+    log(((rate * future_value) / payment) + 1) / log(1 + rate)
+
 }
 
 
-#' @title Periods PV
-#'
-#' @examples
-#' periods_pv(500, 8, 50)
-#'
+#' @rdname ivt_annuity_pv
 #' @export
 #'
-periods_pv <- function(present_value, rate, payment) {
-    
-    # transform rate
+ivt_years_pv <- function(present_value, rate, payment) {
+
     rate <- rate / 100
-    
-    periods <- - (log(1 - ((rate * present_value) / payment)) / log ( 1 + rate))
-    periods <- round(periods, digits = 2)
-    return(periods)
+    - (log(1 - ((rate * present_value) / payment)) / log ( 1 + rate))
+
 }
 
 
