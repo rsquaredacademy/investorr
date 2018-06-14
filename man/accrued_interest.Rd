@@ -4,7 +4,24 @@
 \alias{accrued_interest}
 \title{Accrued interest}
 \usage{
-accrued_interest(last_date, next_date, settle_date, rate, par_value, freq)
+accrued_interest(last_date, next_date, settlement_date, coupon_rate, face_value,
+  freq)
+}
+\arguments{
+\item{last_date}{Previous coupon payment date.}
+
+\item{next_date}{Next coupon payment date.}
+
+\item{settlement_date}{Bond settlement date.}
+
+\item{coupon_rate}{Coupon rate of the bond.}
+
+\item{face_value}{Face value of the bond.}
+
+\item{freq}{Frequency of coupon payments.}
+}
+\description{
+Accrued interest on a bond.
 }
 \examples{
 accrued_interest("2015-05-13", "2015-09-13", "2015-07-13", 7, 1000, 1)
