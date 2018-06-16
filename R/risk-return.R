@@ -148,8 +148,12 @@ ivt_pf_risk_return <- function(probs, returns_1, returns_2, correlation, weight_
 #' @param ... Other arguments.
 #'
 #' @examples
+#' # risk and return
 #' ivt_pf_ef(8, 10, 16, 20, -1)
-#' plot(ivt_pf_ef(8, 10, 16, 20, -1))
+#'
+#' # plot efficient frontier
+#' ef <- ivt_pf_ef(8, 10, 16, 20, -1)
+#' plot(ef)
 #'
 #' @export
 #'

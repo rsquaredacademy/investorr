@@ -28,7 +28,11 @@ ivt_pf_ef(returns_1, risk_1, returns_2, risk_2, correlation)
 Two stock portfolio efficient frontier.
 }
 \examples{
+# risk and return
 ivt_pf_ef(8, 10, 16, 20, -1)
-plot(ivt_pf_ef(8, 10, 16, 20, -1))
+
+# plot efficient frontier
+ef <- ivt_pf_ef(8, 10, 16, 20, -1)
+plot(ef)
 
 }

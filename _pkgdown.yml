@@ -1,0 +1,60 @@
+templates:
+  params:
+    bootswatch: cosmo
+
+navbar:
+  title: "investorr"
+  type: inverse
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Reference"
+      menu:
+        - text: "Functions"
+          href: reference/index.html
+        - text: "News"
+          href: news/index.html
+  right:
+    - icon: fa-github
+      href: https://github.com/rsquaredacademy/investorr
+
+
+home:
+  links:
+  - text: Learn more
+    href: https://www.rsquaredacademy.com
+  - text: Shiny App
+    href: https://apps.rsquaredacademy.com/
+
+
+reference:
+- title: Time value of money
+  
+  contents:
+  - ivt_annuity_pv
+  - ivt_cf_fv
+  - ivt_tbill_price
+
+- title: Bonds
+  
+  contents:
+  - ivt_bond_price_1
+  - ivt_duration_macaulay
+  - ivt_bond_ytm
+
+- title: Risk & Return
+  
+  contents:
+  - ivt_stock_risk_return
+  - ivt_pf_ef
+  - ivt_capm_beta
+
+- title: Stock
+  
+  contents:
+  - ivt_stock_price
+
+- title: Other Functions
+  
+  contents:
+  - ivt_payback_period
