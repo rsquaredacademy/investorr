@@ -71,3 +71,16 @@ test_that('output from stock valuation is as expected', {
     ), 57.8
   )
 })
+
+
+test_that('output from tbill computation is as expected', {
+
+  expect_equal(
+    round(ivt_tbill_price(12.73, 54), 2), 98.09
+  )
+
+  expect_equal(
+    round(ivt_tbill_rate(97.2, 300), 2), 3.36
+  )
+
+})

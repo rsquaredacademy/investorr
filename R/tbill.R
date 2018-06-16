@@ -6,13 +6,13 @@
 #' @param days Days to maturity.
 #' 
 #' @examples
-#' tbill_price(0.145, 57)
-#' tbill_rate(93, 360)
-#' rate_index(93, 200)
+#' ivt_tbill_price(0.145, 57)
+#' ivt_tbill_rate(93, 360)
+#' ivt_rate_index(93, 200)
 #'
 #' @export
 #'
-tbill_price <- function(rate, days) {
+ivt_tbill_price <- function(rate, days) {
 
 	# transform rate
     if (rate > 1) {
@@ -31,22 +31,22 @@ tbill_price <- function(rate, days) {
 	
 }
 
-#' @rdname tbill_price
+#' @rdname ivt_tbill_price
 #' @export
 #'
-tbill_rate <- function(price, days) {
+ivt_tbill_rate <- function(price, days) {
 
 	(100 - price) * (360 / days)
 	
 }
 
-#' @rdname tbill_price
+#' @rdname ivt_tbill_price
 #'
 #' @importFrom ggplot2 ggplot geom_line xlab ylab ggtitle theme_bw
 #'
 #' @export
 #'
-rate_index <- function(price, days) {
+ivt_rate_index <- function(price, days) {
     
     # increase the days by 200
     day1 <- days - 100
