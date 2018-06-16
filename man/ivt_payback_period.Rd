@@ -22,3 +22,11 @@ ivt_break_even(cash_flow)
 Computes payback period, net present value, internal rate of return
 equivalent annual annuity, profitability and break even period.
 }
+\examples{
+ivt_payback_period(c(-1000, 500, 400, 300, 200, 100))
+ivt_npv(c(-1000, 500, 400, 300, 200, 100), 10)
+ivt_eaa(c(-1000, 500, 400, 300, 200, 100), 10)
+ivt_profit_index(c(-1000, 500, 400, 300, 200, 100), 10)
+ivt_break_even(c(-1000, 500, 400, 300, 200, 100))
+
+}
