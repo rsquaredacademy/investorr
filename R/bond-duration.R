@@ -13,7 +13,7 @@
 #' ivt_duration_modified(1000, 10, 8, 5)
 #' ivt_bond_convexity(100, 14, 12, 4)
 #'
-#' @importFrom dplyr select summarise_all mutate pull
+#' @importFrom dplyr select summarise_all mutate pull funs
 #' @importFrom tibble tibble
 #'
 #' @export

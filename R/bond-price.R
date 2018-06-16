@@ -8,6 +8,14 @@
 #' @param yield Yield to maturity.
 #' @param coupon_frequency Frequency of coupon payments.
 #'
+#' @examples
+#' ivt_bond_price_1(1000, 10, 15, 12)
+#' ivt_bond_price_2(1000, 10, 15, 12, "semi-annual")
+#' ivt_bond_price_3(1000, 1690, 8.2, 10.8, '2018-06-16',
+#' '2019-06-16', 1)
+#' ivt_bond_price_4(1000, 8.2, 10.8, '2018-06-16',
+#' '2018-09-07')
+#'
 #' @importFrom magrittr %<>% divide_by
 #' @importFrom dplyr case_when
 #'
@@ -34,7 +42,8 @@ ivt_bond_price_1 <- function(face_value, coupon_rate, maturity_years, yield) {
 #' @rdname ivt_bond_price_1
 #' @export
 #'
-ivt_bond_price_2 <- function(face_value, coupon_rate, maturity_years, yield, coupon_frequency = c("annual", "semi-annual", "quarterly", "monthly")) {
+ivt_bond_price_2 <- function(face_value, coupon_rate, maturity_years, yield,
+    coupon_frequency = c("annual", "semi-annual", "quarterly", "monthly")) {
 
     if (coupon_rate > 1) {
         coupon_rate %<>% divide_by(100)
@@ -83,7 +92,7 @@ ivt_bond_price_2 <- function(face_value, coupon_rate, maturity_years, yield, cou
 #' @rdname ivt_bond_price_1
 #' @export
 #'
-ivt_bond_price_3 <- function(par_value, redemption_value, rate, yield, settlement_date, maturity_date, frequency) {
+ivt_bond_price_3 <- function(face_value, redemption_value, rate, yield, settlement_date, maturity_date, frequency) {
 
     # compute the number of years from dates
     s_date <- as.Date(settlement_date)
@@ -111,7 +120,7 @@ ivt_bond_price_3 <- function(par_value, redemption_value, rate, yield, settlemen
     yield <- yield / 100
 
     # compute the coupon payments
-    coupon <- par_value * rate
+    coupon <- face_value * rate
 
     # discount
     dis <- (1 + yield) ^ n
@@ -122,83 +131,22 @@ ivt_bond_price_3 <- function(par_value, redemption_value, rate, yield, settlemen
     # compute the present value of the coupons
     pv_coupons <- (coupon / yield)  * (1 - (1 / dis))
 
-    result <- pv_coupons + pv_par
-    return(result)
-}
-
-#' @rdname ivt_bond_price_1
-#' @export
-#'
-ivt_bond_price_4 <- function(par_value, rate, yield, settlement_date, maturity_date, frequency) {
-
-    ivt_bond_price_3(par_value, par_value, rate, yield, settlement_date,
-                     maturity_date, frequency)
+    pv_coupons + pv_par
 
 }
 
 #' @rdname ivt_bond_price_1
 #' @export
 #'
-ivt_bond_dates <- function(sdate, mdate, freq) {
+ivt_bond_price_4 <- function(face_value, rate, yield, settlement_date, maturity_date,
+    frequency = c("annual", "semi-annual", "quarterly", "monthly")) {
 
-    # convert sdate and mdate to date type
-    sdate <- as.Date(sdate)
-    mdate <- as.Date(mdate)
+    s_date <- as.Date(settlement_date)
+    m_date <- as.Date(maturity_date)
+    days   <- as.numeric(m_date - s_date)
+    years  <- days / 360
 
-    # frequency settings
-    if (freq == 1) {
-        day <- 360
-        month1 <- 12
-    } else if (freq == 2) {
-        day <- 180
-        month1 <- 6
-    } else {
-        day <- 90
-        month1 <- 3
-    }
+    ivt_bond_price_2(face_value, rate, years, yield, frequency)
 
-    # compute months and years
-    month <- (mdate - sdate) / 30
-    month <- as.integer(floor(month))
-
-    year <- month / 12
-    year <- ceiling(year)
-
-    # compute the days
-    bond_start_date <- mdate - years(year)
-    days_past_start <- sdate - bond_start_date
-    payments_passed <- days_past_start / day
-    payments_passed <- ceiling(payments_passed)
-    payments_passed <- as.integer(payments_passed * month1)
-
-    # next coupon date
-    ncd <- bond_start_date + months(payments_passed)
-
-    # previous coupon date
-    pcd <- ncd - months(month1)
-
-    # days past previous coupon
-    dppc <- sdate - pcd
-    dppc <- as.integer(dppc)
-
-    # days before next coupon
-    dnc <- ncd - sdate - 1
-    dnc <- as.integer(dnc)
-
-    # number of coupons
-    coupons <- as.integer((mdate - pcd) / day)
-
-    # coupon days
-    cdays <- day
-
-    result <- list(next_coupon_date = ncd,
-                   previous_coupon_date  = pcd,
-                   coupon_days = cdays,
-                   days_past_previous_coupon = dppc,
-                   days_before_next_coupon = dnc,
-                   coupons = coupons)
-
-    return(result)
 }
-
 

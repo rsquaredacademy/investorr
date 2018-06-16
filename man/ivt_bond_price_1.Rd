@@ -5,7 +5,6 @@
 \alias{ivt_bond_price_2}
 \alias{ivt_bond_price_3}
 \alias{ivt_bond_price_4}
-\alias{ivt_bond_dates}
 \title{Bond price}
 \usage{
 ivt_bond_price_1(face_value, coupon_rate, maturity_years, yield)
@@ -13,13 +12,11 @@ ivt_bond_price_1(face_value, coupon_rate, maturity_years, yield)
 ivt_bond_price_2(face_value, coupon_rate, maturity_years, yield,
   coupon_frequency = c("annual", "semi-annual", "quarterly", "monthly"))
 
-ivt_bond_price_3(par_value, redemption_value, rate, yield, settlement_date,
+ivt_bond_price_3(face_value, redemption_value, rate, yield, settlement_date,
   maturity_date, frequency)
 
-ivt_bond_price_4(par_value, rate, yield, settlement_date, maturity_date,
-  frequency)
-
-ivt_bond_dates(sdate, mdate, freq)
+ivt_bond_price_4(face_value, rate, yield, settlement_date, maturity_date,
+  frequency = c("annual", "semi-annual", "quarterly", "monthly"))
 }
 \arguments{
 \item{face_value}{Face value of the bond.}
@@ -34,4 +31,13 @@ ivt_bond_dates(sdate, mdate, freq)
 }
 \description{
 Computes the bond price given different inputs.
+}
+\examples{
+ivt_bond_price_1(1000, 10, 15, 12)
+ivt_bond_price_2(1000, 10, 15, 12, "semi-annual")
+ivt_bond_price_3(1000, 1690, 8.2, 10.8, '2018-06-16',
+'2019-06-16', 1)
+ivt_bond_price_4(1000, 8.2, 10.8, '2018-06-16',
+'2018-09-07')
+
 }

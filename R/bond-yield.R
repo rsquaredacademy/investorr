@@ -11,8 +11,8 @@
 #'
 #' @examples
 #' ivt_bond_ytm(99.94, 6.25, 139.87, 12)
-#' ivt_bond_ytm(1000, 10, 862.35, 15)
-#' ivt_bond_ytm(1000, 10, 836.51, 22)
+#' ivt_cyield(1000, 10, 980)
+#' ivt_adj_cyield(100, 8, 97.26, 3)
 #'
 #' @importFrom magrittr add subtract
 #'
@@ -84,7 +84,7 @@ ivt_adj_cyield <- function(face_value, coupon_rate, bond_price, years) {
         divide_by(bond_price) %>%
         multiply_by(100)
 
-    pric_diff <-
+    price_diff <-
         face_value %>%
         subtract(bond_price) %>%
         divide_by(years)
