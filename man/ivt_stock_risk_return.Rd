@@ -3,14 +3,11 @@
 \name{ivt_stock_risk_return}
 \alias{ivt_stock_risk_return}
 \alias{ivt_pf_risk_return}
-\alias{ivt_pf_ef}
 \title{Risk and return}
 \usage{
 ivt_stock_risk_return(probs, returns)
 
 ivt_pf_risk_return(probs, returns_1, returns_2, correlation, weight_1)
-
-ivt_pf_ef(returns_1, risk_1, returns_2, risk_2, correlation)
 }
 \arguments{
 \item{probs}{Probability distribution of future returns.}

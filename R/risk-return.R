@@ -126,19 +126,39 @@ ivt_pf_risk_return <- function(probs, returns_1, returns_2, correlation, weight_
     sd_return <- sqrt(var_return)
 
     result <- list(
-        portfolio_return <- pf_return,
-        portfolio_var    <- var_return,
-        portfolio_sd     <- sd_return
+        portfolio_return = pf_return,
+        portfolio_var    = var_return,
+        portfolio_sd     = sd_return
     )
 
     return(result)
 
 }
 
-#' @rdname ivt_stock_risk_return
+#' Efficient frontier
+#'
+#' Two stock portfolio efficient frontier.
+#'
+#' @param returns_1 Returns from stock 1.
+#' @param risk_1 Risk of stock 1.
+#' @param returns_2 Returns from stock 2.
+#' @param risk_2 Risk from stock 2.
+#' @param correlation Correlation between stock 1 and stock 2.
+#' @param x An object of class \code{ivt_pf_ef}.
+#' @param ... Other arguments.
+#'
+#' @examples
+#' ivt_pf_ef(8, 10, 16, 20, -1)
+#' plot(ivt_pf_ef(8, 10, 16, 20, -1))
+#'
 #' @export
 #'
-ivt_pf_ef <- function(returns_1, risk_1, returns_2, risk_2, correlation) {
+ivt_pf_ef <- function(returns_1, risk_1, returns_2, risk_2,
+                      correlation) UseMethod('ivt_pf_ef')
+
+#' @export
+#'
+ivt_pf_ef.default <- function(returns_1, risk_1, returns_2, risk_2, correlation)  {
 
     if (any(returns_1> 1)) {
         returns_1%<>% divide_by(100)
@@ -156,7 +176,8 @@ ivt_pf_ef <- function(returns_1, risk_1, returns_2, risk_2, correlation) {
         risk_2 %<>% divide_by(100)
     }
 
-    tibble(
+    result <-
+      tibble(
         w_1 = seq(1, 0, -0.01),
         w_2 = 1 - w_1,
         pf_er  = w_1 * returns_1 + w_2 * returns_2,
@@ -164,7 +185,38 @@ ivt_pf_ef <- function(returns_1, risk_1, returns_2, risk_2, correlation) {
         ((w_2 ^ 2) * (risk_2 ^ 2)) +
             2 * w_1 * w_2 * correlation * risk_1 * risk_2,
         pf_sd = sqrt(pf_var)
-    )
+      )
+
+    class(result) <- c('ivt_pf_ef', 'tibble', 'data.frame')
+    return(result)
 
 }
 
+#' @rdname ivt_pf_ef
+#' @importFrom ggplot2 geom_point aes xlim ylim scale_x_continuous scale_y_continuous
+#' @export
+#'
+plot.ivt_pf_ef <- function(x, ...) {
+
+  xmax <-
+    x %>%
+    pull(pf_sd) %>%
+    max() %>%
+    multiply_by(1.25)
+
+  ymax <-
+    x %>%
+    pull(pf_er) %>%
+    max() %>%
+    multiply_by(1.25)
+
+    x %>%
+      select(pf_sd, pf_er) %>%
+      ggplot() +
+      geom_point(aes(x = pf_sd, y = pf_er), color = "red") +
+      ggtitle('Efficient Frontier') + xlab('Standard Deviation') +
+      ylab('Expected Return') +
+      scale_x_continuous(labels = scales::percent, limits = c(0, xmax)) +
+      scale_y_continuous(labels = scales::percent, limits = c(0, ymax))
+
+}
