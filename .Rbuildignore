@@ -4,3 +4,6 @@
 ^README\.Rmd$
 ^LICENSE\.md$
 ^\.github$
+^appveyor\.yml$
+^\.travis\.yml$
+^codecov\.yml$
