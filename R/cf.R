@@ -27,8 +27,8 @@
 #'
 ivt_cf_fv <- function(cash_flow, interest_rate, years) {
 
-    if(interest_rate > 1) {
-        interest_rate / 100
+    if (interest_rate > 1) {
+        interest_rate %<>% divide_by(100)
     }
 
     1 %>%
@@ -46,7 +46,7 @@ ivt_cf_fv <- function(cash_flow, interest_rate, years) {
 ivt_cf_pv <- function(cash_flow, discount_rate, years) {
 
     if(discount_rate > 1) {
-        discount_rate / 100
+        discount_rate %<>%  divide_by(100)
     }
 
     den <-
