@@ -45,3 +45,29 @@ test_that("output from risk and return computation is as expected", {
   )
 
 })
+
+
+test_that('output from stock valuation is as expected', {
+
+  expect_equal(
+    round(ivt_stock_price(1.39, 1.51, 4.65), 2), 44.27
+  )
+
+  expect_equal(
+    round(ivt_stock_dividend(248.64, 3.21, 5.41), 2), 5.47
+  )
+
+  expect_equal(
+    round(ivt_stock_growth(50.77, 3.76, 13.27), 2), 5.86
+  )
+
+  expect_equal(
+    round(ivt_stock_return(48.77, 3.88, 8.1), 2), 16.06
+  )
+
+  expect_equal(
+    round(
+      ivt_stock_ncg_price(3.89, 14.3, c(4, 11, 7, 8, 7)), 2
+    ), 57.8
+  )
+})

@@ -20,11 +20,14 @@
 #'
 #' # stock return
 #' ivt_stock_return(46.8, 2.41, 6.74)
-#' ivt_stock_return(46.8, 2.41, 6.74, TRUEE)
+#' ivt_stock_return(46.8, 2.41, 6.74, TRUE)
 #'
 #' # stock growth
 #' ivt_stock_growth(77.15, 4.44, 14.85)
 #' ivt_stock_growth(77.15, 4.44, 14.85, TRUE)
+#'
+#' # non constant growth
+#' ivt_stock_ncg_price(1.22, 6.2, c(13, 7, 7, 1))
 #'
 #' @importFrom magrittr %<>% divide_by
 #'
@@ -120,6 +123,7 @@ ivt_stock_growth <- function(stock_price, dividend, return_rate, current = FALSE
 }
 
 #' @rdname ivt_stock_price
+#' @importFrom dplyr last
 #' @export
 #'
 ivt_stock_ncg_price <- function(current_dividend, return_rate, growth_rate) {

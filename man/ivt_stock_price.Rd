@@ -44,10 +44,13 @@ ivt_stock_dividend(103.92, 8.6, 13.71, TRUE)
 
 # stock return
 ivt_stock_return(46.8, 2.41, 6.74)
-ivt_stock_return(46.8, 2.41, 6.74, TRUEE)
+ivt_stock_return(46.8, 2.41, 6.74, TRUE)
 
 # stock growth
 ivt_stock_growth(77.15, 4.44, 14.85)
 ivt_stock_growth(77.15, 4.44, 14.85, TRUE)
+
+# non constant growth
+ivt_stock_ncg_price(1.22, 6.2, c(13, 7, 7, 1))
 
 }
