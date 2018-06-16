@@ -6,8 +6,6 @@
 #' @param returns Returns on stock.
 #' @param returns_1 Returns on stock 1.
 #' @param returns_2 Returns on stock 2.
-#' @param risk_1 Risk on stock 1.
-#' @param risk_2 Risk on stock 2.
 #' @param correlation Correlation between stock returns.
 #' @param weight_1 Proportion of portfolio invested in stock 1.
 #'
@@ -18,6 +16,8 @@
 #'
 #' @export
 ivt_stock_risk_return <- function(probs, returns) {
+
+    variance <- NULL
 
     if (length(probs) != length(returns)) {
         stop("Looks like you have not specified the same number of
@@ -66,6 +66,13 @@ ivt_stock_risk_return <- function(probs, returns) {
 #' @export
 #'
 ivt_pf_risk_return <- function(probs, returns_1, returns_2, correlation, weight_1) {
+
+    ret_1 <- NULL
+    ret_2 <- NULL
+    var_1 <- NULL
+    var_2 <- NULL
+    expret_1 <- NULL
+    expret_2 <- NULL
 
     if (any(probs > 1)) {
         probs %<>% divide_by(100)
@@ -164,6 +171,10 @@ ivt_pf_ef <- function(returns_1, risk_1, returns_2, risk_2,
 #'
 ivt_pf_ef.default <- function(returns_1, risk_1, returns_2, risk_2, correlation)  {
 
+    w_1 <- NULL
+    w_2 <- NULL
+    pf_var <- NULL
+
     if (any(returns_1> 1)) {
         returns_1%<>% divide_by(100)
     }
@@ -201,6 +212,9 @@ ivt_pf_ef.default <- function(returns_1, risk_1, returns_2, risk_2, correlation)
 #' @export
 #'
 plot.ivt_pf_ef <- function(x, ...) {
+
+  pf_sd <- NULL
+  pf_er <- NULL
 
   xmax <-
     x %>%

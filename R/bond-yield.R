@@ -7,13 +7,14 @@
 #' @param coupon_rate Coupon rate of the bond.
 #' @param bond_price Price/market value of the bond.
 #' @param years Years to maturity.
-#' @param freq Number of coupon payments in a year.
 #'
 #' @examples
+#' \dontrun{
 #' ivt_bond_ytm(99.94, 6.25, 139.87, 12)
 #' ivt_cyield(1000, 10, 980)
 #' ivt_adj_cyield(100, 8, 97.26, 3)
-#'
+#' }
+#' 
 #' @importFrom magrittr add subtract
 #'
 #' @export

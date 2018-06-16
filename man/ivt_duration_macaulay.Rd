@@ -20,8 +20,6 @@ ivt_bond_convexity(face_value, coupon_rate, yield, years)
 \item{yield}{Yield to maturity.}
 
 \item{years}{Years to maturity.}
-
-\item{freq}{Frequency of coupon payments.}
 }
 \description{
 Computes macaulay duration, modified macaulay duration and bond convexity.

@@ -21,10 +21,6 @@ ivt_pf_risk_return(probs, returns_1, returns_2, correlation, weight_1)
 \item{correlation}{Correlation between stock returns.}
 
 \item{weight_1}{Proportion of portfolio invested in stock 1.}
-
-\item{risk_1}{Risk on stock 1.}
-
-\item{risk_2}{Risk on stock 2.}
 }
 \description{
 Computes expected return, risk, beta and risk free rate.

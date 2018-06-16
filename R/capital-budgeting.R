@@ -2,6 +2,9 @@
 #'
 #' Computes payback period, net present value, internal rate of return
 #' equivalent annual annuity, profitability and break even period.
+#' 
+#' @param cash_flow Cash flow over the project life.
+#' @param capital_cost Cost of capital.
 #'
 #' @examples
 #' ivt_payback_period(c(-1000, 500, 400, 300, 200, 100))

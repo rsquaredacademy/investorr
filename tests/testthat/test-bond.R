@@ -3,6 +3,7 @@ context("test-bond.R")
 test_that("output from bond price computation as expected", {
 
   expect_equal(round(ivt_bond_price_1(1000, 8.5, 20, 11.23), 2), 785.83)
+
   expect_equal(
     round(ivt_bond_price_2(1000, 8.5, 20, 11.23, "semi-annual"), 2),
     784.24)
@@ -54,12 +55,7 @@ test_that("output from bond price computation as expected", {
     ),
     994.11
   )
-  expect_equal(
-    round(
-      ivt_bond_ytm(1000, 10, 862.35, 15), 2
-    ),
-    12.02
-  )
+  
   expect_equal(
     round(
       ivt_cyield(1000, 8.6, 987), 2
@@ -90,4 +86,17 @@ test_that("output from bond price computation as expected", {
     ),
     23.77
   )
+})
+
+test_that('output from ytm is as expected', {
+
+  skip_on_cran()
+
+  expect_equal(
+    round(
+      ivt_bond_ytm(1000, 10, 862.35, 15), 2
+    ),
+    12.02
+  )
+
 })

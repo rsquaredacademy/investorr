@@ -12,6 +12,7 @@ Imports:
     ggplot2,
     magrittr,
     purrr, 
+    scales,
     tibble
 Suggests: 
 	covr,

@@ -93,4 +93,4 @@ ivt_capm_risk_free <- function(return_market, return_stock, beta) {
 
 }
 
-
+    

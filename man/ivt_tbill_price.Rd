@@ -16,6 +16,8 @@ ivt_rate_index(price, days)
 \item{rate}{Annual interest rate.}
 
 \item{days}{Days to maturity.}
+
+\item{price}{Purchase price.}
 }
 \description{
 Computes treasury bill price, rate and rate index.

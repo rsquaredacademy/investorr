@@ -4,6 +4,7 @@
 #' 
 #' @param rate Annual interest rate.
 #' @param days Days to maturity.
+#' @param price Purchase price.
 #' 
 #' @examples
 #' ivt_tbill_price(0.145, 57)
@@ -47,6 +48,10 @@ ivt_tbill_rate <- function(price, days) {
 #' @export
 #'
 ivt_rate_index <- function(price, days) {
+
+  tbill_rate <- NULL
+  Days <- NULL
+  Rate <- NULL
     
     # increase the days by 200
     day1 <- days - 100
@@ -57,7 +62,7 @@ ivt_rate_index <- function(price, days) {
     rate_df <- data.frame(Days = as.numeric(), Rate = as.numeric())
     
     for (days in z) {
-        rate    <- tbill_rate(price, days)
+        rate    <- ivt_tbill_rate(price, days)
         rate_df <- rbind(rate_df, data.frame(Days = days, Rate = rate))
     }
     

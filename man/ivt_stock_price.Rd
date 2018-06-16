@@ -28,6 +28,8 @@ ivt_stock_ncg_price(current_dividend, return_rate, growth_rate)
 \item{current}{Logical; Current dividend or next dividend.}
 
 \item{stock_price}{Price of stock.}
+
+\item{current_dividend}{Current dividend on stock.}
 }
 \description{
 Computes the stock price, dividend, growth rate and required

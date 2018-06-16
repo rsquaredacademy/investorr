@@ -149,6 +149,10 @@ rate of return.</p>
       <th>stock_price</th>
       <td><p>Price of stock.</p></td>
     </tr>
+    <tr>
+      <th>current_dividend</th>
+      <td><p>Current dividend on stock.</p></td>
+    </tr>
     </table>
     
 
@@ -162,7 +166,7 @@ rate of return.</p>
 <span class='co'># stock growth</span>
 <span class='fu'>ivt_stock_growth</span>(<span class='fl'>77.15</span>, <span class='fl'>4.44</span>, <span class='fl'>14.85</span>)</div><div class='output co'>#&gt; [1] 9.094977</div><div class='input'><span class='fu'>ivt_stock_growth</span>(<span class='fl'>77.15</span>, <span class='fl'>4.44</span>, <span class='fl'>14.85</span>, <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; [1] 8.600043</div><div class='input'>
 <span class='co'># non constant growth</span>
-<span class='fu'>ivt_stock_ncg_price</span>(<span class='fl'>1.22</span>, <span class='fl'>6.2</span>, <span class='fu'>c</span>(<span class='fl'>13</span>, <span class='fl'>7</span>, <span class='fl'>7</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; <span class='error'>Error in some(growth_rate, check_rate): could not find function "some"</span></div><div class='input'>
+<span class='fu'>ivt_stock_ncg_price</span>(<span class='fl'>1.22</span>, <span class='fl'>6.2</span>, <span class='fu'>c</span>(<span class='fl'>13</span>, <span class='fl'>7</span>, <span class='fl'>7</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] 29.51848</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

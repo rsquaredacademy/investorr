@@ -119,11 +119,11 @@
 <span class='fu'>ivt_bond_price_2</span>(<span class='no'>face_value</span>, <span class='no'>coupon_rate</span>, <span class='no'>maturity_years</span>, <span class='no'>yield</span>,
   <span class='kw'>coupon_frequency</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"annual"</span>, <span class='st'>"semi-annual"</span>, <span class='st'>"quarterly"</span>, <span class='st'>"monthly"</span>))
 
-<span class='fu'>ivt_bond_price_3</span>(<span class='no'>face_value</span>, <span class='no'>redemption_value</span>, <span class='no'>rate</span>, <span class='no'>yield</span>, <span class='no'>settlement_date</span>,
-  <span class='no'>maturity_date</span>, <span class='no'>frequency</span>)
+<span class='fu'>ivt_bond_price_3</span>(<span class='no'>face_value</span>, <span class='no'>redemption_value</span>, <span class='no'>coupon_rate</span>, <span class='no'>yield</span>,
+  <span class='no'>settlement_date</span>, <span class='no'>maturity_date</span>, <span class='no'>coupon_frequency</span>)
 
-<span class='fu'>ivt_bond_price_4</span>(<span class='no'>face_value</span>, <span class='no'>rate</span>, <span class='no'>yield</span>, <span class='no'>settlement_date</span>, <span class='no'>maturity_date</span>,
-  <span class='kw'>frequency</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"annual"</span>, <span class='st'>"semi-annual"</span>, <span class='st'>"quarterly"</span>, <span class='st'>"monthly"</span>))</pre>
+<span class='fu'>ivt_bond_price_4</span>(<span class='no'>face_value</span>, <span class='no'>coupon_rate</span>, <span class='no'>yield</span>, <span class='no'>settlement_date</span>, <span class='no'>maturity_date</span>,
+  <span class='kw'>coupon_frequency</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"annual"</span>, <span class='st'>"semi-annual"</span>, <span class='st'>"quarterly"</span>, <span class='st'>"monthly"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,13 +148,25 @@
       <th>coupon_frequency</th>
       <td><p>Frequency of coupon payments.</p></td>
     </tr>
+    <tr>
+      <th>redemption_value</th>
+      <td><p>Redemption value of the bond.</p></td>
+    </tr>
+    <tr>
+      <th>settlement_date</th>
+      <td><p>Settlement date of the bond.</p></td>
+    </tr>
+    <tr>
+      <th>maturity_date</th>
+      <td><p>Maturity date of the bond.</p></td>
+    </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>ivt_bond_price_1</span>(<span class='fl'>1000</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>12</span>)</div><div class='output co'>#&gt; [1] 863.7827</div><div class='input'><span class='fu'>ivt_bond_price_2</span>(<span class='fl'>1000</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>12</span>, <span class='st'>"semi-annual"</span>)</div><div class='output co'>#&gt; [1] 862.3517</div><div class='input'><span class='fu'>ivt_bond_price_3</span>(<span class='fl'>1000</span>, <span class='fl'>1690</span>, <span class='fl'>8.2</span>, <span class='fl'>10.8</span>, <span class='st'>'2018-06-16'</span>,
 <span class='st'>'2019-06-16'</span>, <span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 1599.278</div><div class='input'><span class='fu'>ivt_bond_price_4</span>(<span class='fl'>1000</span>, <span class='fl'>8.2</span>, <span class='fl'>10.8</span>, <span class='st'>'2018-06-16'</span>,
-<span class='st'>'2018-09-07'</span>)</div><div class='output co'>#&gt; [1] 969.9053</div><div class='input'>
+<span class='st'>'2018-09-07'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in ivt_bond_price_2(face_value, rate, years, yield, frequency): object 'rate' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

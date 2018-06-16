@@ -18,6 +18,11 @@ ivt_profit_index(cash_flow, capital_cost)
 
 ivt_break_even(cash_flow)
 }
+\arguments{
+\item{cash_flow}{Cash flow over the project life.}
+
+\item{capital_cost}{Cost of capital.}
+}
 \description{
 Computes payback period, net present value, internal rate of return
 equivalent annual annuity, profitability and break even period.

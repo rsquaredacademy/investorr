@@ -20,16 +20,16 @@ ivt_adj_cyield(face_value, coupon_rate, bond_price, years)
 \item{bond_price}{Price/market value of the bond.}
 
 \item{years}{Years to maturity.}
-
-\item{freq}{Number of coupon payments in a year.}
 }
 \description{
 Computes yield to maturity, yield to call, current yield and
 adjusted current yield.
 }
 \examples{
+\dontrun{
 ivt_bond_ytm(99.94, 6.25, 139.87, 12)
 ivt_cyield(1000, 10, 980)
 ivt_adj_cyield(100, 8, 97.26, 3)
+}
 
 }

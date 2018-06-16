@@ -8,6 +8,7 @@
 #' @param return_rate Required return on stock.
 #' @param stock_price Price of stock.
 #' @param current Logical; Current dividend or next dividend.
+#' @param current_dividend Current dividend on stock.
 #'
 #' @examples
 #' # stock price
@@ -124,6 +125,8 @@ ivt_stock_growth <- function(stock_price, dividend, return_rate, current = FALSE
 
 #' @rdname ivt_stock_price
 #' @importFrom dplyr last
+#' @importFrom magrittr is_greater_than
+#' @importFrom purrr some
 #' @export
 #'
 ivt_stock_ncg_price <- function(current_dividend, return_rate, growth_rate) {

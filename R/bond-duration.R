@@ -6,7 +6,6 @@
 #' @param coupon_rate Coupon rate of the bond.
 #' @param yield Yield to maturity.
 #' @param years Years to maturity.
-#' @param freq Frequency of coupon payments.
 #'
 #' @examples
 #' ivt_duration_macaulay(1000, 10, 8, 5)
@@ -19,6 +18,10 @@
 #' @export
 #'
 ivt_duration_macaulay <- function(face_value, coupon_rate, yield, years) {
+
+    pv <- NULL
+    duration <- NULL
+    macaulay <- NULL
 
     # transform rate
     if (yield > 1) {
@@ -65,6 +68,8 @@ ivt_bond_convexity <- function(face_value, coupon_rate, yield, years) {
         coupon_rate %<>% divide_by(100)
     }
 
+    convexity <- NULL
+
     ivt_duration_internal(face_value, coupon_rate, yield, years) %>%
         pull(convexity) %>%
         sum()
@@ -73,6 +78,10 @@ ivt_bond_convexity <- function(face_value, coupon_rate, yield, years) {
 
 
 ivt_duration_internal <- function(face_value, coupon_rate, yield, years) {
+
+    ncf <- NULL
+    pv  <- NULL
+    duration <- NULL
 
     years_seq         <- seq_len(years)
     coupon_payment    <- face_value * coupon_rate
