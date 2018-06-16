@@ -1,8 +1,6 @@
 # Contributing to investorr
 
-This outlines how to propose a change to investorr. For more detailed
-info about contributing to this, and other tidyverse packages, please see the
-[**development contributing guide**](https://rstd.io/tidy-contrib).
+This outlines how to propose a change to investorr. 
 
 ### Fixing typos
 
@@ -44,4 +42,3 @@ Please note that this project is released with a [Contributor Code of
 Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to
 abide by its terms.
 
-### See tidyverse [development contributing guide](https://rstd.io/tidy-contrib) for further details.
