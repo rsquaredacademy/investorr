@@ -5,68 +5,66 @@
 \alias{ivt_annuity_fv}
 \alias{ivt_annuity_due_pv}
 \alias{ivt_annuity_due_fv}
-\alias{ivt_payment_fv}
-\alias{ivt_payment_pv}
-\alias{ivt_years_fv}
-\alias{ivt_years_pv}
+\alias{ivt_annuity_payment_fv}
+\alias{ivt_annuity_payment_pv}
+\alias{ivt_annuity_years_fv}
+\alias{ivt_annuity_years_pv}
 \title{Annuity}
 \usage{
-ivt_annuity_pv(payment, rate, periods)
+ivt_annuity_pv(payment, rate, years)
 
-ivt_annuity_fv(payment, rate, periods)
+ivt_annuity_fv(payment, rate, years)
 
-ivt_annuity_due_pv(payment, rate, periods)
+ivt_annuity_due_pv(payment, rate, years)
 
-ivt_annuity_due_fv(payment, rate, periods)
+ivt_annuity_due_fv(payment, rate, years)
 
-ivt_payment_fv(future_value, rate, periods)
+ivt_annuity_payment_fv(future_value, rate, years)
 
-ivt_payment_pv(present_value, rate, periods)
+ivt_annuity_payment_pv(present_value, rate, years)
 
-ivt_years_fv(future_value, rate, payment)
+ivt_annuity_years_fv(future_value, rate, payment)
 
-ivt_years_pv(present_value, rate, payment)
+ivt_annuity_years_pv(present_value, rate, payment)
 }
 \arguments{
 \item{payment}{Annuity payment.}
 
+\item{rate}{Interest/discount rate.}
+
+\item{years}{Number of years/annuity payments.}
+
 \item{future_value}{Future value of cash flow.}
 
 \item{present_value}{Present value of cash flow.}
-
-\item{interest_rate}{Interest rate.}
-
-\item{discount}{Discount rate.}
-
-\item{years}{Number of years/annuity payments.}
 }
 \description{
-Computes present value, future value, payments and periods
+Computes present value, future value, payments and years
 for annuity and annuity due.
 }
 \examples{
 # present value of annuity
-ivt_annuity_pv(500000, 8, 5)
+ivt_annuity_pv(1000, 8, 5)
 
 # future value of annuity
-ivt_annuity_fv()
+ivt_annuity_fv(950, 7.3, 6)
 
 # present value of annuity due
-ivt_annuity_due_pv()
+ivt_annuity_due_pv(1000, 4.8, 5)
 
 # future value of annuity due
-ivt_annuity_due_fv()
+ivt_annuity_due_fv(1000, 6.4, 3)
 
 # payments given present value
-ivt_payment_pv()
+ivt_annuity_payment_pv(546.15, 7.6, 6)
 
 # payments given future value
-ivt_payment_fv()
+ivt_annuity_payment_fv(941.56, 7.35, 5)
 
 # years given present value
-ivt_years_pv()
+ivt_annuity_years_pv(454.89, 10, 120)
 
 # years given future value
-ivt_years_fv()
+ivt_annuity_years_fv(610.51, 10, 100)
 
 }
