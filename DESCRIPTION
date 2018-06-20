@@ -13,6 +13,7 @@ Imports:
     magrittr,
     purrr, 
     scales,
+    shiny,
     tibble
 Suggests: 
 	covr,
