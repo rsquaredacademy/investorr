@@ -81,7 +81,7 @@ ivt_bond_price_2 <- function(face_value, coupon_rate, maturity_years, yield,
             coupon_frequency == "semi-annual" ~ yield / 2,
             coupon_frequency == "quarterly" ~ yield / 4,
             coupon_frequency == "monthly" ~ yield / 12,
-            TRUE ~ maturity_years
+            TRUE ~ yield
 
         )
 
