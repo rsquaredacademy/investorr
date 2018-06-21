@@ -95,7 +95,8 @@ ivt_bond_price_2 <- function(face_value, coupon_rate, maturity_years, yield,
 #' @rdname ivt_bond_price_1
 #' @export
 #'
-ivt_bond_price_3 <- function(face_value, redemption_value, coupon_rate, yield, settlement_date, maturity_date, coupon_frequency) {
+ivt_bond_price_3 <- function(face_value, redemption_value, coupon_rate, yield, settlement_date, maturity_date, 
+    coupon_frequency = c("annual", "semi-annual", "quarterly")) {
 
     # compute the number of years from dates
     s_date <- as.Date(settlement_date)
@@ -104,18 +105,18 @@ ivt_bond_price_3 <- function(face_value, redemption_value, coupon_rate, yield, s
     years  <- days / 365
     n      <- years
 
-    if (coupon_frequency == 4) {
+    if (coupon_frequency == "quarterly") {
         coupon_rate <- coupon_rate / 4
-        yield <- yield / 4
-        n <- n * 4
-    } else if (coupon_frequency == 2) {
+        yield       <- yield / 4
+        n           <- n * 4
+    } else if (coupon_frequency == "semi-annual") {
         coupon_rate <- coupon_rate / 2
-        yield <- yield / 2
-        n <- n * 2
+        yield       <- yield / 2
+        n           <- n * 2
     } else {
         coupon_rate <- coupon_rate
-        yield <- yield
-        n <- n
+        yield       <- yield
+        n           <- n
     }
 
     # transform the rates
