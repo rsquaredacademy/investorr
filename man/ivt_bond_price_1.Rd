@@ -13,7 +13,8 @@ ivt_bond_price_2(face_value, coupon_rate, maturity_years, yield,
   coupon_frequency = c("annual", "semi-annual", "quarterly", "monthly"))
 
 ivt_bond_price_3(face_value, redemption_value, coupon_rate, yield,
-  settlement_date, maturity_date, coupon_frequency)
+  settlement_date, maturity_date, coupon_frequency = c("annual",
+  "semi-annual", "quarterly"))
 
 ivt_bond_price_4(face_value, coupon_rate, yield, settlement_date, maturity_date,
   coupon_frequency = c("annual", "semi-annual", "quarterly", "monthly"))
@@ -42,7 +43,7 @@ Computes the bond price given different inputs.
 ivt_bond_price_1(1000, 10, 15, 12)
 ivt_bond_price_2(1000, 10, 15, 12, "semi-annual")
 ivt_bond_price_3(1000, 1690, 8.2, 10.8, '2018-06-16',
-'2019-06-16', 1)
+'2019-06-16', 'annual')
 ivt_bond_price_4(1000, 8.2, 10.8, '2018-06-16',
 '2018-09-07')
 

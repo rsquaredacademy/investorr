@@ -16,14 +16,14 @@ test_that("output from bond price computation as expected", {
   expect_equal(
     round(
       ivt_bond_price_3(1000, 1690, 8.2, 10.8, '2018-06-16',
-                       '2019-06-16', 2), 2
+                       '2019-06-16', 'semi-annual'), 2
     ),
     1597.07
   )
   expect_equal(
     round(
       ivt_bond_price_3(1000, 1690, 8.2, 10.8, '2018-06-16',
-                       '2019-06-16', 4), 2
+                       '2019-06-16', 'quarterly'), 2
     ),
     1595.92
   )
