@@ -1,6 +1,6 @@
 #' @importFrom shiny runApp
-#' @title Launch Shiny App
-#' @description Launches shiny app
+#' @title Launch shiny app
+#' @description Launches shiny app.
 #' @examples
 #' \dontrun{
 #' ivt_launch_app()

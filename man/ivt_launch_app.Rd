@@ -2,12 +2,12 @@
 % Please edit documentation in R/shiny-app.R
 \name{ivt_launch_app}
 \alias{ivt_launch_app}
-\title{Launch Shiny App}
+\title{Launch shiny app}
 \usage{
 ivt_launch_app()
 }
 \description{
-Launches shiny app
+Launches shiny app.
 }
 \examples{
 \dontrun{

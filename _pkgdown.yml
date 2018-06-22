@@ -28,6 +28,11 @@ home:
 
 
 reference:
+- title: Shiny App
+
+  contents:
+  - ivt_launch_app
+  
 - title: Time value of money
   
   contents:
