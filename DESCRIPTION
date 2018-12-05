@@ -2,7 +2,8 @@ Package: investorr
 Type: Package
 Title: Tools for Quantitative Finance
 Version: 0.1.0
-Authors@R: person("Aravind", "Hebbali", email = "hebbali.aravind@gmail.com", role = c("aut", "cre"))
+Authors@R: person("Aravind", "Hebbali", email = "hebbali.aravind@gmail.com", role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0001-9220-9669"))
 Description: Beginner friendly tools for teaching quantitative finance. Covers time value of money,
     bonds, portfolio optimization and stock returns.
 Depends:
