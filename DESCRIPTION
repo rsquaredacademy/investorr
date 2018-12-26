@@ -24,4 +24,4 @@ URL: https://investorr.rsquaredacademy.com/, https://github.com/rsquaredacademy/
 BugReports: https://github.com/rsquaredacademy/investorr/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

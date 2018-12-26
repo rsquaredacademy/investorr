@@ -27,11 +27,11 @@
 ivt_bond_price_1 <- function(face_value, coupon_rate, maturity_years, yield) {
 
     if (coupon_rate > 1) {
-        coupon_rate %<>% divide_by(100)
+        coupon_rate <- coupon_rate / 100
     }
 
     if (yield > 1) {
-        yield %<>% divide_by(100)
+        yield <- yield / 100
     }
 
     coupon_payment <- face_value * coupon_rate
@@ -49,11 +49,11 @@ ivt_bond_price_2 <- function(face_value, coupon_rate, maturity_years, yield,
     coupon_frequency = c("annual", "semi-annual", "quarterly", "monthly")) {
 
     if (coupon_rate > 1) {
-        coupon_rate %<>% divide_by(100)
+        coupon_rate <- coupon_rate / 100
     }
 
     if (yield > 1) {
-        yield %<>% divide_by(100)
+        yield <- yield / 100
     }
 
     coupon_frequency <- match.arg(coupon_frequency)
@@ -98,7 +98,6 @@ ivt_bond_price_2 <- function(face_value, coupon_rate, maturity_years, yield,
 ivt_bond_price_3 <- function(face_value, redemption_value, coupon_rate, yield, settlement_date, maturity_date, 
     coupon_frequency = c("annual", "semi-annual", "quarterly")) {
 
-    # compute the number of years from dates
     s_date <- as.Date(settlement_date)
     m_date <- as.Date(maturity_date)
     days   <- as.numeric(m_date - s_date)
@@ -119,22 +118,12 @@ ivt_bond_price_3 <- function(face_value, redemption_value, coupon_rate, yield, s
         n           <- n
     }
 
-    # transform the rates
     coupon_rate <- coupon_rate / 100
     yield <- yield / 100
-
-    # compute the coupon payments
     coupon <- face_value * coupon_rate
-
-    # discount
     dis <- (1 + yield) ^ n
-
-    # compute the present value of the bond
     pv_par <- redemption_value / dis
-
-    # compute the present value of the coupons
     pv_coupons <- (coupon / yield)  * (1 - (1 / dis))
-
     pv_coupons + pv_par
 
 }

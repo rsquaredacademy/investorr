@@ -25,30 +25,17 @@ ivt_stock_risk_return <- function(probs, returns) {
     }
 
     if (any(probs > 1)) {
-        probs %<>% divide_by(100)
+        probs <- probs / 100
     }
 
     if (any(returns > 1)) {
-        returns %<>% divide_by(100)
+        returns <- returns / 100
     }
 
-    exp_ret <-
-        probs %>%
-        multiply_by(returns) %>%
-        sum()
-
-    rr <- tibble(probs = probs, returns = returns)
-
-    rr %<>%
-        mutate(
-            variance = probs * ((returns - exp_ret) ^ 2)
-        )
-
-    risk_var <-
-        rr %>%
-        pull(variance) %>%
-        sum()
-
+    exp_ret <- sum(probs * returns)
+    rr <- data.frame(probs = probs, returns = returns)
+    rr$variance <- rr$probs * ((rr$returns - exp_ret) ^ 2)
+    risk_var <- sum(rr$variance)
     risk_sd <- sqrt(risk_var)
 
     result <- list(
@@ -75,55 +62,28 @@ ivt_pf_risk_return <- function(probs, returns_1, returns_2, correlation, weight_
     expret_2 <- NULL
 
     if (any(probs > 1)) {
-        probs %<>% divide_by(100)
+        probs <- probs / 100
     }
 
     if (any(returns_1> 1)) {
-        returns_1%<>% divide_by(100)
+        returns_1 <- returns_1 / 100
     }
 
     if (any(returns_2 > 1)) {
-        returns_2 %<>% divide_by(100)
+        returns_2 <- returns_2 / 100
     }
 
-    pf_data <- tibble(probs = probs, ret_1 = returns_1, ret_2 = returns_2)
-
-    pf_data %<>%
-        mutate(
-            expret_1 = probs * ret_1,
-            expret_2 = probs * ret_2
-        )
-
-     er_1 <-
-        pf_data %>%
-        pull(expret_1) %>%
-        sum()
-
-    er_2 <-
-        pf_data %>%
-        pull(expret_2) %>%
-        sum()
-
-    pf_data %<>%
-        mutate(
-            var_1 = probs * ((ret_1 - er_1) ^ 2),
-            var_2 = probs * ((ret_2 - er_2) ^ 2)
-        )
-
-    sd_1 <-
-        pf_data %>%
-        pull(var_1) %>%
-        sum() %>%
-        sqrt(.)
-
-    sd_2 <-
-        pf_data%>%
-        pull(var_2) %>%
-        sum() %>%
-        sqrt(.)
-
+    pf_data <- data.frame(probs = probs, ret_1 = returns_1, ret_2 = returns_2)
+    pf_data$expret_1 <- pf_data$probs * pf_data$ret_1
+    pf_data$expret_2 <- pf_data$probs * pf_data$ret_2
+    er_1 <- sum(pf_data$expret_1)    
+    er_2 <- sum(pf_data$expret_2) 
+    pf_data$var_1 <- pf_data$probs * ((pf_data$ret_1 - er_1) ^ 2)
+    pf_data$var_2 <- pf_data$probs * ((pf_data$ret_2 - er_2) ^ 2)
+    sd_1 <- sqrt(sum(pf_data$var_1))        
+    sd_2 <- sqrt(sum(pf_data$var_2))        
+    
     weight_2 <- 1 - weight_1
-
     pf_return <- weight_1 * er_1 + weight_2 * er_2
 
     var_return <- ((weight_1 ^ 2) * (sd_1 ^ 2)) +
@@ -176,23 +136,23 @@ ivt_pf_ef.default <- function(returns_1, risk_1, returns_2, risk_2, correlation)
     pf_var <- NULL
 
     if (any(returns_1> 1)) {
-        returns_1%<>% divide_by(100)
+        returns_1 <- returns_1 / 100
     }
 
     if (any(returns_2 > 1)) {
-        returns_2 %<>% divide_by(100)
+        returns_2 <- returns_2 / 100
     }
 
     if (any(risk_1> 1)) {
-        risk_1%<>% divide_by(100)
+        risk_1 <- risk_1 / 100
     }
 
     if (any(risk_2 > 1)) {
-        risk_2 %<>% divide_by(100)
+        risk_2 <- risk_2 / 100
     }
 
     result <-
-      tibble(
+      data.frame(
         w_1 = seq(1, 0, -0.01),
         w_2 = 1 - w_1,
         pf_er  = w_1 * returns_1 + w_2 * returns_2,
@@ -216,21 +176,10 @@ plot.ivt_pf_ef <- function(x, ...) {
   pf_sd <- NULL
   pf_er <- NULL
 
-  xmax <-
-    x %>%
-    pull(pf_sd) %>%
-    max() %>%
-    multiply_by(1.25)
+  xmax <- max(x$pf_sd) * 1.25
+  ymax <- max(x$pf_er) * 1.25
 
-  ymax <-
-    x %>%
-    pull(pf_er) %>%
-    max() %>%
-    multiply_by(1.25)
-
-    x %>%
-      select(pf_sd, pf_er) %>%
-      ggplot() +
+  ggplot(x) +
       geom_point(aes(x = pf_sd, y = pf_er), color = "red") +
       ggtitle('Efficient Frontier') + xlab('Standard Deviation') +
       ylab('Expected Return') +

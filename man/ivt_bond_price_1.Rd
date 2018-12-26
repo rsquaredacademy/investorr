@@ -16,8 +16,9 @@ ivt_bond_price_3(face_value, redemption_value, coupon_rate, yield,
   settlement_date, maturity_date, coupon_frequency = c("annual",
   "semi-annual", "quarterly"))
 
-ivt_bond_price_4(face_value, coupon_rate, yield, settlement_date, maturity_date,
-  coupon_frequency = c("annual", "semi-annual", "quarterly", "monthly"))
+ivt_bond_price_4(face_value, coupon_rate, yield, settlement_date,
+  maturity_date, coupon_frequency = c("annual", "semi-annual",
+  "quarterly", "monthly"))
 }
 \arguments{
 \item{face_value}{Face value of the bond.}

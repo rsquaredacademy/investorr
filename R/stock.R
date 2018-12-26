@@ -30,18 +30,17 @@
 #' # non constant growth
 #' ivt_stock_ncg_price(1.22, 6.2, c(13, 7, 7, 1))
 #'
-#' @importFrom magrittr %<>% divide_by
 #'
 #' @export
 #'
 ivt_stock_price <- function(dividend, growth_rate, return_rate, current = FALSE) {
 
     if (growth_rate > 1) {
-        growth_rate %<>% divide_by(100)
+        growth_rate <- growth_rate / 100
     }
 
     if (return_rate > 1) {
-        return_rate %<>% divide_by(100)
+        return_rate <- return_rate / 100
     }
 
     gr <- return_rate - growth_rate
@@ -66,11 +65,11 @@ ivt_stock_price <- function(dividend, growth_rate, return_rate, current = FALSE)
 ivt_stock_dividend <- function(stock_price, growth_rate, return_rate, current = FALSE) {
 
     if (growth_rate > 1) {
-        growth_rate %<>% divide_by(100)
+        growth_rate <- growth_rate / 100
     }
 
     if (return_rate > 1) {
-        return_rate %<>% divide_by(100)
+        return_rate <- return_rate / 100
     }
 
     gr <- return_rate - growth_rate
@@ -94,7 +93,7 @@ ivt_stock_dividend <- function(stock_price, growth_rate, return_rate, current = 
 ivt_stock_return <- function(stock_price, dividend, growth_rate, current = FALSE) {
 
     if (growth_rate > 1) {
-        growth_rate %<>% divide_by(100)
+        growth_rate <- growth_rate / 100
     }
 
     if (current) {
@@ -112,7 +111,7 @@ ivt_stock_return <- function(stock_price, dividend, growth_rate, current = FALSE
 ivt_stock_growth <- function(stock_price, dividend, return_rate, current = FALSE) {
 
     if (return_rate > 1) {
-        return_rate %<>% divide_by(100)
+        return_rate <- return_rate / 100
     }
 
     if (current) {
@@ -125,55 +124,31 @@ ivt_stock_growth <- function(stock_price, dividend, return_rate, current = FALSE
 
 #' @rdname ivt_stock_price
 #' @importFrom dplyr last
-#' @importFrom magrittr is_greater_than
-#' @importFrom purrr some
 #' @export
 #'
 ivt_stock_ncg_price <- function(current_dividend, return_rate, growth_rate) {
 
     if (return_rate > 1) {
-       return_rate %<>% divide_by(100)
+       return_rate <- return_rate / 100
     }
 
-    check_rate <- function(x) {
-        is_greater_than(x, 1)
+    if (any(growth_rate > 1)) {
+      growth_rate <- growth_rate / 100
     }
 
-    if (some(growth_rate, check_rate)) {
-        growth_rate %<>% divide_by(100)
-    }
 
-    n <-
-        growth_rate %>%
-        length() %>%
-        subtract(1)
-
+    n <- length(growth_rate) - 1
     growth <- growth_rate + 1
-
-    growth_factor <-
-        growth %>%
-        cumprod() %>%
-       multiply_by(current_dividend)
-
+    growth_factor <- cumprod(growth) * current_dividend
     l <- length(growth_rate)
-
-    dividends <- extract(growth_factor, -l)
-
-    final_dividend <- last(growth_factor)
-    last_growth    <- last(growth_rate)
-
-    required_list <-
-        return_rate %>%
-        rep(n) %>%
-        as.list()
-
+    lgf <- length(growth_factor)
+    dividends <- growth_factor[-l]
+    final_dividend <- growth_factor[lgf]
+    last_growth    <- growth_rate[l]
+    required_list <- as.list(rep(return_rate, n))
     dividends_list <- as.list(dividends)
-
-    t_list <-
-        n %>%
-        seq_len(.) %>%
-        as.list()
-
+    t_list <- as.list(seq_len(n))
+    
     f <- function(p, i, t) {
         p / ((1 + i) ^ t)
     }

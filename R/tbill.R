@@ -15,21 +15,13 @@
 #'
 ivt_tbill_price <- function(rate, days) {
 
-	# transform rate
-    if (rate > 1) {
-        rate %<>% divide_by(100)
-    }
+  if (rate > 1) {
+    rate <- rate / 100
+  }
 
-	# compute price
-    rate_year <-
-      rate %>%
-      multiply_by(days) %>%
-      divide_by(360)
-
-    1 %>%
-      subtract(rate_year) %>%
-      multiply_by(100)
-	
+  rate_year <- rate * days / 360
+  (1 - rate_year) * 100    
+    
 }
 
 #' @rdname ivt_tbill_price
@@ -53,12 +45,10 @@ ivt_rate_index <- function(price, days) {
   Days <- NULL
   Rate <- NULL
     
-    # increase the days by 200
     day1 <- days - 100
     day2 <- days + 100
     z    <- c(day1, day2)
     
-    # create an empty data frame
     rate_df <- data.frame(Days = as.numeric(), Rate = as.numeric())
     
     for (days in z) {
@@ -66,7 +56,6 @@ ivt_rate_index <- function(price, days) {
         rate_df <- rbind(rate_df, data.frame(Days = days, Rate = rate))
     }
     
-    # use ggplot2 to plot the rate data
     ggplot(data = rate_df, aes(x = Days, y = Rate)) + 
       geom_line(colour = "blue") + xlab("Days Until Maturity") + 
       ylab("Rate") + ggtitle("T-Bill Rate") + theme_bw()

@@ -25,10 +25,10 @@ ivt_duration_macaulay <- function(face_value, coupon_rate, yield, years) {
 
     # transform rate
     if (yield > 1) {
-        yield %<>% divide_by(100)
+        yield <- yield / 100
     }
     if (coupon_rate > 1) {
-        coupon_rate %<>% divide_by(100)
+        coupon_rate <- coupon_rate / 100
     }
 
     ivt_duration_internal(face_value, coupon_rate, yield, years) %>%
@@ -48,7 +48,7 @@ ivt_duration_modified <- function(face_value, coupon_rate, yield, years) {
     macaulay <- ivt_duration_macaulay(face_value, coupon_rate, yield, years)
 
     if (yield > 1) {
-        yield %<>% divide_by(100)
+        yield <- yield / 100
     }
 
     macaulay / (1 + yield)
@@ -62,10 +62,10 @@ ivt_bond_convexity <- function(face_value, coupon_rate, yield, years) {
 
     # transform rate
     if (yield > 1) {
-        yield %<>% divide_by(100)
+        yield <- yield / 100
     }
     if (coupon_rate > 1) {
-        coupon_rate %<>% divide_by(100)
+        coupon_rate <- coupon_rate / 100
     }
 
     convexity <- NULL
@@ -86,17 +86,13 @@ ivt_duration_internal <- function(face_value, coupon_rate, yield, years) {
     years_seq         <- seq_len(years)
     coupon_payment    <- face_value * coupon_rate
     cf_stream         <- rep(coupon_payment, years)
-    cf_stream[years] %<>% add(face_value)
+    cf_stream[years]  <- cf_stream[years] + face_value
 
-    cf_tibble <- tibble(t = years_seq,
-                        ncf = cf_stream)
+    cf_tibble <- data.frame(t = years_seq, ncf = cf_stream)
 
-    cf_tibble %<>%
-        mutate(
-            pv = ncf / ((1 + yield) ^ t),
-            duration  = pv * t,
-            convexity = duration * (t + 1) / (sum(pv) * ((1 + yield) ^ 2))
-        )
+    cf_tibble$pv <- cf_tibble$ncf / ((1 + yield) ^ cf_tibble$t)
+    cf_tibble$duration  <- cf_tibble$pv * cf_tibble$t
+    cf_tibble$convexity = cf_tibble$duration * (cf_tibble$t + 1) / (sum(cf_tibble$pv) * ((1 + yield) ^ 2))
 
     return(cf_tibble)
 

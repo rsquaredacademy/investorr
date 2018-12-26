@@ -10,7 +10,8 @@
 \usage{
 ivt_stock_price(dividend, growth_rate, return_rate, current = FALSE)
 
-ivt_stock_dividend(stock_price, growth_rate, return_rate, current = FALSE)
+ivt_stock_dividend(stock_price, growth_rate, return_rate,
+  current = FALSE)
 
 ivt_stock_return(stock_price, dividend, growth_rate, current = FALSE)
 
@@ -54,5 +55,6 @@ ivt_stock_growth(77.15, 4.44, 14.85, TRUE)
 
 # non constant growth
 ivt_stock_ncg_price(1.22, 6.2, c(13, 7, 7, 1))
+
 
 }

@@ -19,15 +19,15 @@
 ivt_capm_beta <- function(risk_free, return_stock, return_market) {
 
     if (risk_free > 1) {
-        risk_free %<>% divide_by(100)
+        risk_free <- risk_free / 100
     }
 
     if (return_stock> 1) {
-        return_stock %<>% divide_by(100)
+        return_stock <-  return_stock / 100
     }
 
     if (return_market> 1) {
-        return_market %<>% divide_by(100)
+        return_market <- return_market / 100
     }
 
     (return_stock - risk_free) / (return_market - risk_free)
@@ -41,17 +41,14 @@ ivt_capm_beta <- function(risk_free, return_stock, return_market) {
 ivt_capm_stock_return <- function(risk_free, return_market, beta) {
 
     if (risk_free > 1) {
-        risk_free %<>% divide_by(100)
+      risk_free <- risk_free / 100
     }
 
-    if (return_market> 1) {
-        return_market %<>% divide_by(100)
+    if (return_market>  1) {
+      return_market <- return_market / 100
     }
 
-    return_market %>%
-        subtract(risk_free) %>%
-        multiply_by(beta) %>%
-        add(risk_free)
+    risk_free + ((return_market - risk_free) * beta)
 
 }
 
@@ -61,18 +58,14 @@ ivt_capm_stock_return <- function(risk_free, return_market, beta) {
 ivt_capm_market_return <- function(risk_free, return_stock, beta) {
 
     if (risk_free > 1) {
-        risk_free %<>% divide_by(100)
+        risk_free <- risk_free / 100
     }
 
     if (return_stock> 1) {
-        return_stock %<>% divide_by(100)
+        return_stock <-  return_stock / 100
     }
 
-    beta %>%
-        subtract(1) %>%
-        multiply_by(risk_free) %>%
-        add(return_stock) %>%
-        divide_by(beta)
+    (return_stock + ((beta - 1) * risk_free)) / beta
 
 }
 
@@ -82,11 +75,11 @@ ivt_capm_market_return <- function(risk_free, return_stock, beta) {
 ivt_capm_risk_free <- function(return_market, return_stock, beta) {
 
     if (return_stock> 1) {
-        return_stock %<>% divide_by(100)
+        return_stock <-  return_stock / 100
     }
 
     if (return_market> 1) {
-        return_market %<>% divide_by(100)
+        return_market <- return_market / 100
     }
 
     (return_stock - (beta * return_market)) / (1 - beta)

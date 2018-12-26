@@ -40,23 +40,12 @@ ivt_payback_period <- function(cash_flow) {
 ivt_npv <- function(cash_flow, capital_cost) {
 
     if (capital_cost > 1) {
-        capital_cost %<>% divide_by(100)
+        capital_cost <-  capital_cost / 100
     }
 
-    pos_flow <-
-        cash_flow %>%
-        extract(-1) %>%
-        as.list()
-
-    t <-
-        pos_flow %>%
-        length() %>%
-        seq_len(.)
-
-    r <-
-        capital_cost %>%
-        rep(length(t)) %>%
-        as.list()
+    pos_flow <- as.list(cash_flow[-1])
+    t <- seq_len(length(pos_flow))
+    r <- as.list(rep(capital_cost, length(t)))
 
     f <- function(p, i, t) {
         p / ((1 + i) ^ t)
@@ -76,14 +65,10 @@ ivt_npv <- function(cash_flow, capital_cost) {
 ivt_eaa <- function(cash_flow, capital_cost) {
 
     if (capital_cost > 1) {
-        capital_cost %<>% divide_by(100)
+        capital_cost <- capital_cost / 100
     }
 
-    n <-
-        cash_flow %>%
-        extract(-1) %>%
-        length()
-
+    n   <- length(cash_flow[-1])
     npv <- ivt_npv(cash_flow, capital_cost)
     num <- capital_cost * npv
     den <- 1 - ((1 + capital_cost) ^ -n)
@@ -98,7 +83,7 @@ ivt_eaa <- function(cash_flow, capital_cost) {
 ivt_profit_index <- function(cash_flow, capital_cost) {
 
     if (capital_cost > 1) {
-        capital_cost %<>% divide_by(100)
+        capital_cost <- capital_cost / 100
     }
 
     outflow <- -cash_flow[1]
