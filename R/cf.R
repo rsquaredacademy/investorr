@@ -72,11 +72,7 @@ ivt_cf_stream_fv <- function(cf_stream, interest_rate) {
     }
 
     fvalues <- pmap(list(cf, r_list, n_list), f)
-
-    fvalues %>%
-        map_dbl(., 1) %>%
-        sum()
-
+    sum(map_dbl(fvalues, 1))
 }
 
 
@@ -102,9 +98,6 @@ ivt_cf_stream_pv <- function(cf_stream, discount_rate) {
     }
 
     fvalues <- pmap(list(cf, r_list, n_list), f)
-
-    fvalues %>%
-        map_dbl(., 1) %>%
-        sum()
-
+    sum(map_dbl(fvalues, 1))
+    
 }

@@ -12,8 +12,6 @@
 #' ivt_duration_modified(1000, 10, 8, 5)
 #' ivt_bond_convexity(100, 14, 12, 4)
 #'
-#' @importFrom dplyr select summarise_all mutate pull funs
-#' @importFrom tibble tibble
 #'
 #' @export
 #'
@@ -23,7 +21,6 @@ ivt_duration_macaulay <- function(face_value, coupon_rate, yield, years) {
     duration <- NULL
     macaulay <- NULL
 
-    # transform rate
     if (yield > 1) {
         yield <- yield / 100
     }
@@ -31,11 +28,9 @@ ivt_duration_macaulay <- function(face_value, coupon_rate, yield, years) {
         coupon_rate <- coupon_rate / 100
     }
 
-    ivt_duration_internal(face_value, coupon_rate, yield, years) %>%
-        select(pv, duration) %>%
-        summarise_all(funs(sum)) %>%
-        mutate(macaulay = duration / pv) %>%
-        pull(macaulay)
+    dur <- ivt_duration_internal(face_value, coupon_rate, yield, years)
+    dur_sum <- colSums(dur[, c('pv', 'duration')])
+    macaulay <- unname(dur_sum[2] / dur_sum[1])
 
 }
 
@@ -70,10 +65,8 @@ ivt_bond_convexity <- function(face_value, coupon_rate, yield, years) {
 
     convexity <- NULL
 
-    ivt_duration_internal(face_value, coupon_rate, yield, years) %>%
-        pull(convexity) %>%
-        sum()
-
+    sum(ivt_duration_internal(face_value, coupon_rate, yield, years)$convexity)
+    
 }
 
 

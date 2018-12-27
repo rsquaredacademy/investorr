@@ -9,9 +9,7 @@ Description: Beginner friendly tools for teaching quantitative finance. Covers t
 Depends:
     R(>= 3.1)
 Imports: 
-    dplyr,
     ggplot2,
-    magrittr,
     purrr, 
     scales,
     shiny,

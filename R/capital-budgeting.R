@@ -31,10 +31,6 @@ ivt_payback_period <- function(cash_flow) {
 }
 
 #' @rdname ivt_payback_period
-#'
-#' @importFrom magrittr extract
-#' @importFrom purrr pmap map_dbl
-#'
 #' @export
 #'
 ivt_npv <- function(cash_flow, capital_cost) {
@@ -51,10 +47,7 @@ ivt_npv <- function(cash_flow, capital_cost) {
         p / ((1 + i) ^ t)
     }
 
-    pmap(list(pos_flow, r, t), f) %>%
-        map_dbl(., 1) %>%
-        sum() %>%
-        magrittr::add(cash_flow[1])
+    sum(map_dbl(pmap(list(pos_flow, r, t), f), 1)) + cash_flow[1]
 
 }
 

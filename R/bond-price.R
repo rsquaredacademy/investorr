@@ -19,8 +19,6 @@
 #' ivt_bond_price_4(1000, 8.2, 10.8, '2018-06-16',
 #' '2018-09-07')
 #'
-#' @importFrom magrittr %<>% divide_by
-#' @importFrom dplyr case_when
 #'
 #' @export
 #'
@@ -41,7 +39,6 @@ ivt_bond_price_1 <- function(face_value, coupon_rate, maturity_years, yield) {
 
 }
 
-#' @importFrom dplyr case_when
 #' @rdname ivt_bond_price_1
 #' @export
 #'
@@ -58,33 +55,36 @@ ivt_bond_price_2 <- function(face_value, coupon_rate, maturity_years, yield,
 
     coupon_frequency <- match.arg(coupon_frequency)
 
-    crate <-
-        case_when(
-            coupon_frequency == "semi-annual" ~ coupon_rate / 2,
-            coupon_frequency == "quarterly" ~ coupon_rate / 4,
-            coupon_frequency == "monthly" ~ coupon_rate / 12,
-            TRUE ~ coupon_rate
+    if (coupon_frequency == "semi-annual") {
+        crate <- coupon_rate / 2
+    } else if (coupon_frequency == "quarterly") {
+        crate <- coupon_rate / 4
+    } else if (coupon_frequency == "monthly") {
+        crate <- coupon_rate / 12
+    } else {
+        crate <- coupon_rate
+    }
 
-        )
+    if (coupon_frequency == "semi-annual") {
+        myears <- maturity_years * 2
+    } else if (coupon_frequency == "quarterly") {
+        myears <- maturity_years * 4
+    } else if (coupon_frequency == "monthly") {
+        myears <- maturity_years * 12
+    } else {
+        myears <- maturity_years
+    }
 
-    myears <-
-        case_when(
-            coupon_frequency == "semi-annual" ~ maturity_years * 2,
-            coupon_frequency == "quarterly" ~ maturity_years  * 4,
-            coupon_frequency == "monthly" ~ maturity_years * 12,
-            TRUE ~ maturity_years
-
-        )
-
-    myield <-
-        case_when(
-            coupon_frequency == "semi-annual" ~ yield / 2,
-            coupon_frequency == "quarterly" ~ yield / 4,
-            coupon_frequency == "monthly" ~ yield / 12,
-            TRUE ~ yield
-
-        )
-
+     if (coupon_frequency == "semi-annual") {
+        myield <- yield / 2
+    } else if (coupon_frequency == "quarterly") {
+        myield <- yield / 4
+    } else if (coupon_frequency == "monthly") {
+        myield <- yield / 12
+    } else {
+        myield <- yield
+    }
+   
     coupon_payment <- face_value * crate
     discount <- 1 / ((1 + myield) ^ myears)
 

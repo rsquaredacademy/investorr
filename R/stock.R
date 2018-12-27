@@ -123,7 +123,6 @@ ivt_stock_growth <- function(stock_price, dividend, return_rate, current = FALSE
 }
 
 #' @rdname ivt_stock_price
-#' @importFrom dplyr last
 #' @export
 #'
 ivt_stock_ncg_price <- function(current_dividend, return_rate, growth_rate) {
@@ -153,12 +152,7 @@ ivt_stock_ncg_price <- function(current_dividend, return_rate, growth_rate) {
         p / ((1 + i) ^ t)
     }
 
-    first <-
-        list(dividends_list, required_list, t_list) %>%
-        pmap(., f) %>%
-        map_dbl(., 1) %>%
-        sum()
-
+    first <- sum(map_dbl(pmap(list(dividends_list, required_list, t_list), f), 1))
     second <- (final_dividend / (return_rate - last_growth)) *
         ((1 + return_rate) ^ -n)
 

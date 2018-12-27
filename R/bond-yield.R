@@ -49,9 +49,6 @@ ivt_bond_ytm <- function(face_value, coupon_rate, bond_price, years) {
 }
 
 #' @rdname ivt_bond_ytm
-#'
-#' @importFrom magrittr multiply_by
-#'
 #' @export
 #'
 ivt_cyield <- function(face_value, coupon_rate, bond_price) {
