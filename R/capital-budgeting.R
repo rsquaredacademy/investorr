@@ -54,7 +54,7 @@ ivt_npv <- function(cash_flow, capital_cost) {
     pmap(list(pos_flow, r, t), f) %>%
         map_dbl(., 1) %>%
         sum() %>%
-        add(cash_flow[1])
+        magrittr::add(cash_flow[1])
 
 }
 

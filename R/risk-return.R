@@ -135,7 +135,7 @@ ivt_pf_ef.default <- function(returns_1, risk_1, returns_2, risk_2, correlation)
     w_2 <- NULL
     pf_var <- NULL
 
-    if (any(returns_1> 1)) {
+    if (any(returns_1 > 1)) {
         returns_1 <- returns_1 / 100
     }
 
@@ -143,7 +143,7 @@ ivt_pf_ef.default <- function(returns_1, risk_1, returns_2, risk_2, correlation)
         returns_2 <- returns_2 / 100
     }
 
-    if (any(risk_1> 1)) {
+    if (any(risk_1 > 1)) {
         risk_1 <- risk_1 / 100
     }
 
@@ -151,16 +151,14 @@ ivt_pf_ef.default <- function(returns_1, risk_1, returns_2, risk_2, correlation)
         risk_2 <- risk_2 / 100
     }
 
-    result <-
-      data.frame(
-        w_1 = seq(1, 0, -0.01),
-        w_2 = 1 - w_1,
-        pf_er  = w_1 * returns_1 + w_2 * returns_2,
-        pf_var = ((w_1 ^ 2) * (risk_1 ^ 2)) +
-        ((w_2 ^ 2) * (risk_2 ^ 2)) +
-            2 * w_1 * w_2 * correlation * risk_1 * risk_2,
-        pf_sd = sqrt(pf_var)
-      )
+    w_1 <- seq(1, 0, -0.01)
+    w_2 <- 1 - w_1
+    pf_er <- w_1 * returns_1 + w_2 * returns_2
+    pf_var <- ((w_1 ^ 2) * (risk_1 ^ 2)) + ((w_2 ^ 2) * (risk_2 ^ 2)) +
+            2 * w_1 * w_2 * correlation * risk_1 * risk_2
+    pf_sd <- sqrt(pf_var)
+
+    result <- data.frame(w_1, w_2, pf_er, pf_var, pf_sd)
 
     class(result) <- c('ivt_pf_ef', 'tibble', 'data.frame')
     return(result)
