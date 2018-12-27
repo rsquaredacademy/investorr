@@ -160,7 +160,7 @@ ivt_pf_ef.default <- function(returns_1, risk_1, returns_2, risk_2, correlation)
 
     result <- data.frame(w_1, w_2, pf_er, pf_var, pf_sd)
 
-    class(result) <- c('ivt_pf_ef', 'tibble', 'data.frame')
+    class(result) <- c('ivt_pf_ef', 'data.frame')
     return(result)
 
 }

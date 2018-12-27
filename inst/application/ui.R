@@ -2,7 +2,6 @@ library(shiny)
 library(shinyBS)
 library(shinythemes)
 library(shinycssloaders)
-library(magrittr)
 library(shinycssloaders)
 
 shinyUI(

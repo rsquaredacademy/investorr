@@ -1,11 +1,7 @@
-library(dplyr)
-library(tibble)
-library(magrittr)
 library(ggplot2)
 library(purrr)
 library(scales)
 library(investorr)
-library(lubridate)
 
 shinyServer(function(input, output, session) {
 
