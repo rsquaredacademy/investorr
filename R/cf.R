@@ -49,7 +49,6 @@ ivt_cf_pv <- function(cash_flow, discount_rate, years) {
 }
 
 #' @importFrom purrr pmap map_dbl
-#' @importFrom magrittr %>% 
 #' @rdname ivt_cf_fv
 #' @export
 #'
