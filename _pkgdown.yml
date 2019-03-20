@@ -42,9 +42,7 @@ reference:
 - title: Time Value of Money
   
   contents:
-  - ivt_annuity_pv
-  - ivt_cf_fv
-  - ivt_tbill_price
+  - Annuity
 
 - title: Bonds
   

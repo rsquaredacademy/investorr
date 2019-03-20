@@ -11,6 +11,7 @@ Depends:
 Imports: 
     ggplot2,
     purrr, 
+    R6,
     scales,
     shiny
 Suggests: 
