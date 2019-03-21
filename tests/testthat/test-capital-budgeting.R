@@ -2,26 +2,13 @@ context("test-capital-budgeting.R")
 
 test_that("output from capital budgeting computation is as expected", {
 
-  expect_equal(
-    round(
-      ivt_npv(c(-1100, 300, 200, 400, 100, 400), 9.45), 2
-    ), -29.51
-  )
+  myCashflow <- Cashflow$new()
+  myCashflow$set_cash_flow(c(-1100, 300, 200, 400, 100, 400))
+  myCashflow$set_capital_cost(9.45)
 
-  expect_equal(
-    round(
-      ivt_eaa(c(-1100, 300, 200, 400, 100, 400), 9.45), 2
-    ), -7.68
-  )
-
-  expect_equal(
-    round(
-      ivt_profit_index(c(-1100, 300, 200, 400, 100, 400), 9.45), 2
-    ), 0.97
-  )
-
-  expect_equal(
-    ivt_break_even(c(-1100, 300, 200, 400, 100, 400)), 5
-  )
+  expect_equal(round(myCashflow$compute_npv(), 2), -29.51)
+  expect_equal(round(myCashflow$compute_eaa(), 2), -7.68)
+  expect_equal(round(myCashflow$compute_profit_index(), 2), 0.97)
+  expect_equal(myCashflow$compute_break_even(), 5)
 
 })
